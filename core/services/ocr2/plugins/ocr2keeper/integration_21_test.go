@@ -240,7 +240,9 @@ func TestIntegration_KeeperPluginLogUpkeep(t *testing.T) {
 		emitErr := emitEvents(t.Context(), emits, contracts, carrol, func() {
 			commit()
 		})
-		assert.NoError(t, emitErr)
+		if !assert.NoError(t, emitErr) {
+			return
+		}
 	}()
 
 	listener, done := listenPerformed(t, backend, registry, ids, 1)
